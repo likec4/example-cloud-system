@@ -1,0 +1,106 @@
+model {
+
+  extend amazon.rds {
+    aurora = component 'Aurora' {
+      #db
+
+      tblUsers = table 'Users Table' {
+        #next
+        description '
+          Table with registered users.
+          Contains references to Identity provider.
+        '
+      }
+    }
+  } 
+
+  extend cloud.next {
+
+    backend = app 'Backend V2' {
+      description 'The next version of backend'
+    }
+
+    graphql = component 'GraphQL' {
+      #next
+      description '
+        GraphQL API for the backend
+        Uses Apollo Server
+      '
+
+      gqlQuery myAccount {
+        description 'Returns the current user account'
+
+        -> backend 'reads'
+      }
+      gqlMutation updateAccount {
+        description 'Updates the current user account'
+
+        -> backend 'writes'
+      }
+    }
+
+    backend -> aurora.tblUsers 'reads/writes'
+
+    backend -> cloud.legacy.backend.services 'calls legacy' {
+      #next
+    }
+
+    events = component 'Events Manager' {
+      -> amazon.sqs.queue1 'writes'
+    }
+
+    backend -> events "emits"
+  }
+
+}
+
+views {
+
+  view of amazon.rds {
+    include
+      *,
+      pg.*,
+      aurora.*,
+      cloud.next.* -> amazon.rds,
+      cloud.legacy.* -> amazon.rds,
+      cloud,
+      cloud.next,
+      cloud.legacy
+
+    style * {
+      color: muted
+    }
+    style cloud.* {
+      color: primary
+    }
+    style amazon.rds.* {
+      color: secondary
+    }
+  }
+
+  view of backend {
+    include *
+    include cloud, cloud.*
+
+    style * {
+      color muted
+    }
+
+    style backend {
+      color primary
+    }       
+  } 
+  
+  view of graphql {
+    include *, cloud.next
+
+
+    style * {
+      color muted
+    }
+
+    style graphql, graphql.* {
+      color primary
+    }    
+  }
+}

@@ -1,0 +1,69 @@
+model {
+
+  amazon = externalSystem 'Amazon' {
+    description: 'Cloud and managed services provider'
+
+    rds = container 'RDS' {
+      description: 'Relational Database Service'
+
+      pg = component 'PostgreSQL' {
+        #db
+
+        tblUsers = table 'Users Table' {
+          #deprecated
+          description: '
+            Table with registered users.
+            Contains references to Identity provider.
+            [deprecated, moving to Aurora]
+          '
+        }
+      }
+
+    }
+
+    sqs = container {
+      title: 'SQS'
+      description: 'Simple Queue Service'
+
+      queue queue1 {
+        description: 'Raw Data'
+      }
+
+      queue queue2 {
+        description: '
+          Filtered and preprocessed data
+          Ready for further processing
+        '
+      }
+
+      queue1 -> queue2 "filters and republish"
+    }
+  }
+
+}
+
+views {
+
+  view of amazon {
+    title: "Overview Amazon"
+
+    include *, cloud
+    include cloud.* -> amazon.*
+
+    style * {
+      color: muted
+    }
+    style amazon, amazon.* {
+      color: primary
+    }
+  }
+
+  view of sqs {
+    title: 'Overview Amazon SQS'
+
+    include
+      *,
+      amazon
+  }
+
+}

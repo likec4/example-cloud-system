@@ -1,0 +1,54 @@
+model {
+
+  extend cloud.ui {
+
+    dashboard = component {
+      title 'Customer Dashboard'
+      description 'Nextjs Application, hosted on Vercel'
+      style {
+        shape browser
+      }
+    }
+
+    dashboard -> cloud.graphql.myAccount "fetches via GraphQL"
+    dashboard -> cloud.graphql.updateAccount "mutates via GraphQL"
+
+    dashboard -> cloud.legacy.services "fetches via REST"
+
+  }
+
+  customer -> dashboard "opens in the browser"
+
+}
+
+views {
+
+  view of cloud.ui {
+    include *
+    include cloud
+
+
+    style * {
+      color muted
+    }
+    
+    style cloud.ui, cloud.ui.* {
+      color primary
+    }      
+  }
+
+  view of dashboard {
+    include *
+    exclude * -> dashboard
+    include cloud.ui
+
+    style * {
+      color muted
+    }
+    
+    style cloud.ui, cloud.ui.* {
+      color primary
+    }  
+  }
+
+}

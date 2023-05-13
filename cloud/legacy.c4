@@ -1,0 +1,42 @@
+model {
+
+  extend cloud.legacy {
+
+    backend = app 'Legacy Backend' {
+      description 'The legacy version of backend'
+    
+      services = component 'Legacy Backend Services' {
+        #deprecated
+        description "Description of Legacy Backend Services"
+
+        -> amazon.pg.tblUsers 'reads/writes'
+      }
+    }
+  }
+}
+
+views {
+
+  view of cloud.legacy {
+
+    include *, cloud
+    include -> customer ->
+
+    style * {
+      color muted
+    }
+
+    style cloud.legacy, cloud.legacy.* {
+      color primary
+    }
+  }
+
+  view of cloud.legacy.backend {
+    include *, cloud.legacy
+  }
+
+  view of cloud.legacy.backend.services {
+    include *, cloud.legacy.backend
+  }
+
+}
