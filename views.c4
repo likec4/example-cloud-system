@@ -1,26 +1,30 @@
 views {
 
-  view index {
-    title "Landscape"
-    include
-      *, cloud.*
-
-  }
-
   view of cloud {
-    title "Overview of Cloud"
+    title "The Cloud System"
 
     include
       *,
+      ui.*,
       next.*,
       legacy.*
     exclude
+      supportUser,
+      ui.supportPanel,
       next -> legacy
     include
       cloud.* -> amazon.*,
       amazon
     exclude
       amazon -> *
+
+    style * {
+      color muted
+    }
+
+    style cloud, cloud.* {
+      color primary
+    }      
   }
 
   view of cloud.next {

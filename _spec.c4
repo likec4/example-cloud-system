@@ -37,6 +37,7 @@ specification {
   }
   element gqlMutation
   element gqlQuery
+  element lambda
 
   tag deprecated
   tag next

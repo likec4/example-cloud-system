@@ -19,10 +19,13 @@ views {
 
   view of cloud.legacy {
 
-    include *, cloud
-    include -> customer ->
+    include
+      *,
+      cloud,
+      cloud.ui,
+      -> customer ->
 
-    style * {
+    style cloud, customer, cloud.* {
       color muted
     }
 
@@ -32,7 +35,17 @@ views {
   }
 
   view of cloud.legacy.backend {
-    include *, cloud.legacy
+    include
+      *,
+      cloud.legacy
+
+    style cloud.* {
+      color muted
+    }
+
+    style cloud.legacy, cloud.legacy.* {
+      color primary
+    }    
   }
 
   view of cloud.legacy.backend.services {

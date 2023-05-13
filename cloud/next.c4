@@ -3,6 +3,10 @@ model {
   extend amazon.rds {
     aurora = component 'Aurora' {
       #db
+      style {
+        shape storage
+        color secondary
+      }
 
       tblUsers = table 'Users Table' {
         #next
@@ -10,6 +14,10 @@ model {
           Table with registered users.
           Contains references to Identity provider.
         '
+        style {
+          shape storage
+          color secondary
+        }
       }
     }
   } 
@@ -28,25 +36,27 @@ model {
       '
 
       gqlQuery myAccount {
-        description 'Returns the current user account'
+        description '
+          Returns the account of the authenticated user
+        '
 
         -> backend 'reads'
       }
       gqlMutation updateAccount {
-        description 'Updates the current user account'
+        description '          
+          If requested by customer, updates only its own account
+          Support user updates any account
+        '
 
         -> backend 'writes'
       }
     }
 
     backend -> aurora.tblUsers 'reads/writes'
-
-    backend -> cloud.legacy.backend.services 'calls legacy' {
-      #next
-    }
+    backend -> cloud.legacy.backend.services 'calls legacy'
 
     events = component 'Events Manager' {
-      -> amazon.sqs.queue1 'writes'
+      -> amazon.queue1 'writes'
     }
 
     backend -> events "emits"
@@ -79,8 +89,13 @@ views {
   }
 
   view of backend {
-    include *
-    include cloud, cloud.*
+    include
+      *,
+      cloud,
+      cloud.*
+    exclude
+      cloud.ui,
+      cloud.supportUser
 
     style * {
       color muted
@@ -93,7 +108,6 @@ views {
   
   view of graphql {
     include *, cloud.next
-
 
     style * {
       color muted
