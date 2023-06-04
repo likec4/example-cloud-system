@@ -47,6 +47,9 @@ views {
     include
       *,
       cloud.*
+    style amazon, customer {
+      color indigo
+    }
   }
 
   view of customer {

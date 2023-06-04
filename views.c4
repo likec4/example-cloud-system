@@ -18,11 +18,16 @@ views {
     exclude
       amazon -> *
 
-    style * {
-      color muted
+    style amazon {
+      color indigo
     }
-
-    style cloud, cloud.* {
+    style customer {
+      color green
+    } 
+    style cloud {
+      color sky
+    }     
+    style cloud.* {
       color primary
     }      
   }
@@ -35,11 +40,13 @@ views {
 
 
     style * {
-      color muted
+      color gray
     }
-
-    style cloud.next, cloud.next.* {
+    style cloud.* {
       color primary
+    }
+    style cloud.next.* {
+      color sky
     }
   }
 
