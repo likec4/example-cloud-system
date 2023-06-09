@@ -39,7 +39,10 @@ model {
     }
   }
 
+  customer -> cloud 'uses and pays'
+
 }
+
 views {
 
   view index {
@@ -54,6 +57,7 @@ views {
 
   view of customer {
     include *
+    exclude supportUser -> 
   }  
 
 }
