@@ -1,0 +1,33 @@
+name: update-diagrams
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.c4"
+
+jobs:
+  diagrams:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: clean images
+        run: git rm -r images/*
+
+      - name: export
+        uses: likec4/actions-export@v1
+        with:
+          output: images
+
+      - name: commit images
+        run:
+          git add images/
+          git commit -m "update diagrams [skip ci]"
+          git push

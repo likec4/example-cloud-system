@@ -17,7 +17,7 @@ model {
 
 views {
 
-  view of cloud.legacy {
+  view cloud_legacy of cloud.legacy {
 
     include
       *,
@@ -34,7 +34,7 @@ views {
     }
   }
 
-  view of cloud.legacy.backend {
+  view cloud_legacy_backend of cloud.legacy.backend {
     include
       *,
       cloud.legacy
@@ -48,8 +48,18 @@ views {
     }    
   }
 
-  view of cloud.legacy.backend.services {
-    include *, cloud.legacy.backend
+  view legacy_services of cloud.legacy.backend.services {
+    include
+      *,
+      cloud.legacy.backend
+
+      style cloud.* {
+        color muted
+      }
+  
+      style cloud.legacy, cloud.legacy.* {
+        color primary
+      }        
   }
 
 }

@@ -25,11 +25,12 @@ model {
   extend cloud.next {
 
     backend = app 'Backend V2' {
+      #api
       description 'The next version of backend'
     }
 
     graphql = component 'GraphQL' {
-      #next
+      #next, #api
       description '
         GraphQL API for the backend
         Uses Apollo Server
@@ -66,29 +67,24 @@ model {
 
 views {
 
-  view of amazon.rds {
-    include
-      *,
-      pg.*,
-      aurora.*,
-      cloud.next.* -> amazon.rds,
-      cloud.legacy.* -> amazon.rds,
-      cloud,
-      cloud.next,
-      cloud.legacy
+
+  view cloud_next of cloud.next {
+    include *
+    include cloud
+    exclude
+      amazon.* -> cloud,
+      cloud.ui.supportPanel -> amazon,
+      cloud.next.backend -> amazon.*
 
     style * {
-      color: muted
+      color slate
     }
-    style cloud.* {
-      color: primary
+    style cloud.next.* {
+      color primary
     }
-    style amazon.rds.* {
-      color: secondary
-    }
-  }
+  }  
 
-  view of backend {
+  view backend of backend {
     include
       *,
       cloud,
@@ -106,7 +102,7 @@ views {
     }       
   } 
   
-  view of graphql {
+  view graphql of graphql {
     include *, cloud.next
 
     style * {
@@ -117,4 +113,5 @@ views {
       color primary
     }    
   }
+
 }

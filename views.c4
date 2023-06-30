@@ -1,6 +1,6 @@
 views {
 
-  view of cloud {
+  view cloud of cloud {
     title "The Cloud System"
 
     include
@@ -30,24 +30,6 @@ views {
     style cloud.* {
       color primary
     }      
-  }
-
-  view of cloud.next {
-    include *
-    include cloud
-    exclude amazon.* -> cloud
-    exclude cloud.next.backend -> amazon.*
-
-
-    style * {
-      color gray
-    }
-    style cloud.* {
-      color primary
-    }
-    style cloud.next.* {
-      color sky
-    }
   }
 
 }

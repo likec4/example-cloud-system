@@ -13,9 +13,6 @@ model {
 
     ui = container 'Frontends' {
       description 'All the frontend applications of the cloud system'
-      style {
-        shape browser
-      }
     }
 
     legacy = container 'Cloud Legacy' {
@@ -55,9 +52,15 @@ views {
     }
   }
 
-  view of customer {
-    include *
-    exclude supportUser -> 
+  view customer of customer {
+    include
+      *,
+      customer -> cloud.ui.*,
+      supportUser
+
+    style supportUser {
+      color indigo
+    }  
   }  
 
 }
