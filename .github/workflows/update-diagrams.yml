@@ -27,8 +27,10 @@ jobs:
         with:
           out: images
 
-      - name: commit images
+      - name: add images
         run: |
           git add images/
-          git commit -m "update diagrams [skip ci]"
-          git push
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "update diagrams [skip ci]"
