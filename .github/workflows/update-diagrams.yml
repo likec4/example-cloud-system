@@ -19,15 +19,16 @@ jobs:
         uses: actions/checkout@v3
 
       - name: clean images
-        run: git rm -r images/*
+        run: |
+          git rm -r images/*
 
       - name: export
         uses: likec4/actions-export@v1
         with:
-          output: images
+          out: images
 
       - name: commit images
-        run:
+        run: |
           git add images/
           git commit -m "update diagrams [skip ci]"
           git push
