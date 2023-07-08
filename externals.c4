@@ -77,9 +77,7 @@ views {
   view amazon_sqs of sqs {
     title: 'Overview Amazon SQS'
 
-    include
-      *,
-      amazon
+    include *
   }
 
   view amazon_lambdas of lambdas {
