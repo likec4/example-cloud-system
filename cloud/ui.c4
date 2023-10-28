@@ -39,7 +39,7 @@ model {
 
   }
 
-  customer -> dashboard "opens in the browser"
+  customer -> dashboard "opens in the browser vit HTTPS"
   customer -> mobile "opens on a mobile device"
   cloud.supportUser -> supportPanel "accesses via browser with encrypted VPN connection"
 

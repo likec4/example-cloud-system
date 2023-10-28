@@ -2,9 +2,6 @@
 
 This is an example of an architecture, described with [LikeC4](https://likec4.dev).
 
-This [Github workflow](./.github/workflows/update-diagrams.yml) updates diagrams.
-
-
 ## About
 
 1. Open with [github.dev](https://github.dev/likec4/example-cloud-system/blob/main/model.c4) or [vscode.dev](https://vscode.dev/github/likec4/example-cloud-system/blob/main/model.c4)
@@ -13,13 +10,6 @@ This [Github workflow](./.github/workflows/update-diagrams.yml) updates diagrams
 3. Open any preview via CodeLens or run command.  
    ![SCR-20230513-nz0](https://github.com/likec4/example-cloud-system/assets/824903/744f6503-0ef2-498d-87ca-f232815a9882)
 4. Play!
-
-
-## Context
-
-
-
-![](images/index.png)
 
 ## Resources
 
