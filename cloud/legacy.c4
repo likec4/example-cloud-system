@@ -22,13 +22,15 @@ views {
     include
       *,
       cloud,
+      amazon,
+      cloud.legacy -> amazon.*,
       -> customer ->
 
     style * {
       color secondary
     }  
 
-    style cloud {
+    style cloud, amazon {
       color muted
     }
 

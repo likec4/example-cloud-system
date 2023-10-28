@@ -1,19 +1,25 @@
 views {
 
   view cloud of cloud {
-    title "The Cloud System"
+    title "Context: Cloud System"
 
-    include *
+    include
+      *,
+      amazon,
+      -> amazon.*,
 
     style * {
       color secondary
     }
-    style cloud {
+    style cloud, amazon {
       color muted
     }
     style cloud.* {
       color green
-    }      
+    }   
+    style supportUser {
+      color secondary
+    }   
   }
 
 }

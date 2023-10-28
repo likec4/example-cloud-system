@@ -6,7 +6,7 @@ model {
     '
   }
 
-  cloud = system 'Cloud System' {
+  cloud = softwareSys 'Cloud System' {
     description '
       Our SaaS platfrom that allows
       customers to interact with
@@ -29,7 +29,7 @@ model {
       description 'Cloud Next is the next version of our cloud systems'
     }
 
-    supportUser = actor 'Support User' {
+    supportUser = actor 'Suppot User' {
       description '
         A emploere from the support team
         Has limited access to the system
@@ -55,12 +55,20 @@ views {
   view customer of customer {
     include
       *,
+      cloud,
+      cloud.ui,
       customer -> cloud.ui.*,
-      supportUser
-
-    style supportUser {
-      color indigo
-    }  
+      supportUser,
+      
+    style * {
+      color secondary
+    }
+    style cloud, cloud.ui {
+      color muted
+    }
+    style customer {
+      color green
+    }      
   }  
 
 }

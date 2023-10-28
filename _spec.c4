@@ -6,7 +6,7 @@ specification {
     }
   }
 
-  element system
+  element softwareSys
 
   element externalSystem {
     style {

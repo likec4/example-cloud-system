@@ -58,7 +58,7 @@ model {
 views {
 
   view amazon of amazon {
-    title "Overview Amazon"
+    title "Amazon"
 
     include
       *,
@@ -77,15 +77,27 @@ views {
   }
 
   view amazon_sqs of sqs {
-    title: 'Overview Amazon SQS'
+    title 'Amazon: SQS'
 
     include
       *,
-      amazon
+      amazon,
+      cloud,
+      cloud.next.* -> sqs.*
+
+    style * {
+      color secondary
+    }
+    style amazon, cloud {
+      color muted
+    }
+    style sqs, sqs.* {
+      color green
+    }        
   }
 
   view amazon_lambdas of lambdas {
-    title: 'Overview Amazon Lambdas'
+    title 'Amazon: Lambdas'
     
     include
       *,
@@ -105,7 +117,7 @@ views {
   }
 
   view amazon_rds of amazon.rds {
-    title 'Overview Amazon RDS'
+    title 'Amazon: RDS'
 
     include
       *,
