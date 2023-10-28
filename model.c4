@@ -29,7 +29,7 @@ model {
       description 'Cloud Next is the next version of our cloud systems'
     }
 
-    supportUser = actor 'Suppot User' {
+    supportUser = actor 'Support Team' {
       description '
         A emploere from the support team
         Has limited access to the system
