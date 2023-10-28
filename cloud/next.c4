@@ -77,10 +77,13 @@ views {
       cloud.next.backend -> amazon.*
 
     style * {
-      color slate
+      color secondary
     }
-    style cloud.next.* {
-      color primary
+    style cloud {
+      color muted
+    }
+    style cloud.next, cloud.next.* {
+      color green
     }
   }  
 
@@ -94,23 +97,35 @@ views {
       cloud.supportUser
 
     style * {
+      color secondary
+    }
+    style cloud {
       color muted
     }
-
-    style backend {
-      color primary
-    }       
+    style cloud.next, cloud.next.* {
+      color green
+    }      
   } 
   
   view graphql of graphql {
-    include *, cloud.next
-
+    include
+      *,
+      amazon,
+      -> amazon.*,
+      cloud.next,
+      cloud.ui.* -> graphql,
+      customer -> cloud.ui.*,
+      cloud.supportUser -> cloud.ui.*,
+      
+    
     style * {
+      color secondary
+    }
+    style cloud.next, amazon, cloud.ui {
       color muted
     }
-
     style graphql, graphql.* {
-      color primary
+      color green
     }    
   }
 

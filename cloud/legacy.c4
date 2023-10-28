@@ -22,15 +22,18 @@ views {
     include
       *,
       cloud,
-      // cloud.ui,
       -> customer ->
 
-    style cloud, customer, cloud.* {
+    style * {
+      color secondary
+    }  
+
+    style cloud {
       color muted
     }
 
     style cloud.legacy, cloud.legacy.* {
-      color primary
+      color green
     }
   }
 
@@ -39,12 +42,12 @@ views {
       *,
       cloud
 
-    style cloud {
-      color muted
-    }
-
     style * {
       color secondary
+    }
+    
+    style cloud {
+      color muted
     }
 
     style cloud.legacy.* {

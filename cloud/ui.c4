@@ -33,7 +33,7 @@ model {
       style {
         shape browser
       }
-      -> cloud.next.graphql "updates data in case of a support request"
+      -> cloud.next.graphql.updateAccount "updates data in case of a support request"
       -> amazon.aurora.tblUsers "reads users from the database"
     }    
 
@@ -52,39 +52,43 @@ views {
     include cloud
 
     style * {
-      color muted
-    }
-    style customer, cloud.supportUser {
       color secondary
+    }
+    style cloud {
+      color muted
     }    
     style cloud.ui, cloud.ui.* {
-      color primary
+      color green
     }      
   }
 
   view mobile of mobile {
-    include *
-    include cloud 
+    include *, cloud
 
     style * {
       color secondary
     }
+    style cloud, cloud.ui {
+      color muted
+    }
     style mobile {
-      color primary
+      color green
     }
   }  
 
   view cloud_ui_dashboard of dashboard {
     include *
     exclude * -> dashboard
-    include cloud.ui
+    include cloud.ui, cloud
 
     style * {
+      color secondary
+    }
+    style cloud, cloud.ui {
       color muted
     }
-    
-    style cloud.ui, cloud.ui.* {
-      color primary
+    style cloud.ui.* {
+      color green
     }  
   }
   
@@ -93,15 +97,18 @@ views {
       *,
       cloud.ui,
       cloud,
-      supportPanel -> *,
-      amazon.aurora
-    
-    style cloud, cloud.* {
+      amazon,
+      supportPanel -> amazon.*
+
+    style * {
+      color secondary
+    }
+    style cloud, amazon {
       color muted
     }
     
     style cloud.ui, cloud.ui.* {
-      color primary
+      color green
     }  
   }
 
