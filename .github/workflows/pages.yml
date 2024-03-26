@@ -2,7 +2,7 @@
 name: Deploy Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes targeting the default branch and c4 files
   push:
     branches: ["main"]
 
@@ -14,9 +14,9 @@ permissions:
   contents: read
   pages: write
   id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+  
+# Allow only one concurrent deployment, skipping runs queued between the run in progress and the latest queued.
+# However, do NOT cancel in-progress runs, as we want to allow these production deployments to be completed.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -31,8 +31,8 @@ jobs:
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v3
-
+        uses: actions/configure-pages@v4
+        
       - name: Build
         uses: likec4/actions@v1
         with:
@@ -41,9 +41,9 @@ jobs:
           # required if you don't set a custom domain for the repository
           # https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#types-of-github-pages-sites
           base: ${{ steps.pages.outputs.base_path }}
-
+          
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
@@ -57,4 +57,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
