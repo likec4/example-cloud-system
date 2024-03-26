@@ -28,19 +28,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
+
       - name: Build
-        run: npx likec4 build -o ./dist --base "${{ steps.pages.outputs.base_path }}"
-      # GitHub Pages doesn't allow to configure routing for single page apps,
-      # So we copy index.html to 404.html to make it work
+        uses: likec4/actions@v1
+        with:
+          action: build
+          output: dist
+          # required if you don't set a custom domain for the repository
+          # https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#types-of-github-pages-sites
+          base: ${{ steps.pages.outputs.base_path }}
+
       - name: Custom 404 page
         run: cp ./dist/index.html ./dist/404.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
