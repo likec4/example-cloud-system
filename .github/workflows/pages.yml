@@ -37,11 +37,11 @@ jobs:
         uses: likec4/actions@v1
         with:
           action: build
-          output: dist
-          likec4-version: next
+          output: dist           
           # required if you don't set a custom domain for the repository
           # https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#types-of-github-pages-sites
           base: ${{ steps.pages.outputs.base_path }}
+          # likec4-version: latest
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
